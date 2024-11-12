@@ -1,4 +1,5 @@
 name: Deployment
+
 on:
   push:
     branches:
@@ -7,7 +8,7 @@ on:
 
 env:
   MONGO_DB_NAME: gha-data 
-  #this will be available in all jobs unless overridden
+  # this will be available in all jobs unless overridden
   
 jobs:
   test:
@@ -19,7 +20,7 @@ jobs:
     environment: testing
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
+      - name: Get Cod
         uses: actions/checkout@v3
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -33,12 +34,13 @@ jobs:
       - name: Run tests
         run: npm test
       - name: Output information
-        run: echo "MONGODB_USERNAME: ${{ env.MONOGO_USERNAME }}"
+        run: 
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
         run: |        
-          echo "MONGODB_USERNAME: ${{ env.MONOGO_USERNAME }}"
-          echo "MONGO_DB_NAME: ${{ env.MONOGO_DB_NAME }}"
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
