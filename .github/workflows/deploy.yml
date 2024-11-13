@@ -14,8 +14,9 @@ jobs:
   test:
     env: 
       MONGODB_CLUSTER_ADDRESS: cluster0.0te72.mongodb.net
-      MONGODB_USERNAME: lowderrickym
-      MONGODB_PASSWORD: M7tuSufOdAxkwgJb
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      #some environment variable values should not be exposed (database access password / credentials)
       PORT: 8080
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +35,7 @@ jobs:
         run: npm test
       - name: Output information
         run: 
-          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }} "
 
   deploy:
     needs: test
@@ -43,4 +44,4 @@ jobs:
       - name: Output information
         run: |        
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
-          echo "MONGO_DB_NAME: ${{ env.MONGO_DB_NAME }}"
+          echo "MONGO_DB_NAME: $MONGO_DB_NAME"
